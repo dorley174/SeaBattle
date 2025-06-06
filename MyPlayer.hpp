@@ -4,7 +4,7 @@
 using namespace std;
 
 
-
+// Структура игрока: Его поля, координаты последнего выстрела, а также направления выстрелов
 struct MyPlayer:  public IPlayer {
     vector<vector<char> > field;
     vector<vector<char> > enemy;
@@ -15,14 +15,17 @@ struct MyPlayer:  public IPlayer {
 
     MyPlayer() = default;
 
+    // Проверка на то, стреляешь ли ты в поле от 0 до 9 клеток
     bool check(int x, int y) {
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
+    // Проверка на то, стреляешь ли ты в нетронутое поле (т.е. "." на карте)
     bool check_empty(int x, int y) {
         return check(x, y) && field[x][y] == '.' || !check(x, y);
     }
 
+    // Функция создания корабля
     bool create_ship(int x1, int y1, int x2, int y2){
         if (x2 < x1) swap(x1, x2);
         if (y2 < y1) swap(y1, y2);
@@ -46,6 +49,7 @@ struct MyPlayer:  public IPlayer {
         return true;
     }
 
+    // Функция создания всех кораблей
      vector<vector<char> > create() {
         field.resize(10, vector<char>(10, '.'));
         enemy.resize(10, vector<char>(10, '.'));
@@ -95,6 +99,7 @@ struct MyPlayer:  public IPlayer {
         return field;
     }
 
+    // Убийство корабля
      void kill(int x, int y) {
         int x1 = x, x2 = x, y1 = y, y2 = y;
         while(x1 > 0 && enemy[x1 - 1][y1] == 'P') x1--;
@@ -118,6 +123,7 @@ struct MyPlayer:  public IPlayer {
         }
     }
 
+    // Изменить клетку в зависимости от результата выстрела 
       void get_shot_res(int res){
         if (res == 0) {
             enemy[last_shot.first][last_shot.second] = '*';
@@ -130,13 +136,14 @@ struct MyPlayer:  public IPlayer {
         }
     }
 
-
+    // Расчет следующего выстрела
      pair<int, int> shot(){
-
+        // Переработай эту функцию, чтобы она стреляла по тактике, а не случайно
         last_shot = {rand() % 10, rand() % 10};
         return last_shot;
     }
 
+    
      int opponent_shot(pair<int, int> p){
         int x = p.first;
         int y = p.second;
@@ -161,11 +168,12 @@ struct MyPlayer:  public IPlayer {
 
         return 2;
 
-        //0 - �� �����
-        //1 - �����
-        //2 - ����
+        //0 - мимо
+        //1 - попал
+        //2 - убит
     }
 
+    // Это твой ник бро
      string team_name(){
         return "My Player";
     }

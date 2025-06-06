@@ -4,7 +4,7 @@
 
 using namespace std;
 
-
+// Интерфейс для MyPlayer и RandomPlayer: их будущие методы и функции
 struct IPlayer {
     virtual vector<vector<char> > create() {};
     virtual pair<int, int> shot() {};

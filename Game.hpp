@@ -3,11 +3,14 @@
 #include "IPlayer.hpp"
 #include "CheckPlayer.hpp"
 
+// Структура игровой сессии
 struct Game {
+    // Направления выстрелов
     vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0, 0};
     vector<int> dy = {1, 0, -1, 1, 0, -1, 1, 0, -1};
     int dk = 9;
 
+    // Вывод текущего поля
     void print_field(vector<vector<char>> &field) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -17,10 +20,12 @@ struct Game {
         }
     }
 
+    // Проверка на то, попадают ли координаты в диапазон 
     bool check(int x, int y) {
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
+    // Убийство корабля, замена всех букв на "P"
     void kill(int x, int y, vector<vector<char>> &field) {
         int x1 = x, x2 = x, y1 = y, y2 = y;
         while(x1 > 0 && field[x1 - 1][y1] == 'P') x1--;
@@ -45,7 +50,7 @@ struct Game {
     }
 
 
-
+    // Функция запуска самой игры
     void game(IPlayer &p1, IPlayer &p2) {
         vector<vector<char>> field_p1, field_p2;
         CheckPlayer c1, c2;
@@ -162,12 +167,13 @@ struct Game {
 
         }
 
-
+        // Вывод в формате: Игрок1, его поле, Игрок2, его поле
         cout << p1.team_name() << endl << endl;
         print_field(field_p1);
         cout << endl << endl << endl;
         cout << p2.team_name() << endl << endl;
         print_field(field_p2);
+        cout << endl << endl << endl;
 
     }
 

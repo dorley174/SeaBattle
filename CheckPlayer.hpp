@@ -23,7 +23,7 @@ struct CheckPlayer {
     }
 
 
-    bool check_ship(int x, int y, int &cnt) {
+    void check_ship(int x, int y, int &cnt) {
         cnt++;
         field[x][y] = '.';
         x1 = min(x1, x);
@@ -92,9 +92,9 @@ struct CheckPlayer {
 
         return 2 == res;
 
-        //0 - не попал
-        //1 - попал
-        //2 - убил
+        //0 - пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        //1 - пїЅпїЅпїЅпїЅпїЅ
+        //2 - пїЅпїЅпїЅпїЅ
     }
 
      string team_name(){

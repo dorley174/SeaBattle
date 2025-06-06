@@ -2,8 +2,8 @@
 
 using namespace std;
 
-
-struct CheckPlayer {
+// Структура игрока: Его поля, координаты последнего выстрела, а также направления выстрелов
+struct CheckPlayer {               
     vector<vector<char> > field;
     vector<int> dx = {1, 1, 1, -1, -1, -1, 0, 0, 0};
     vector<int> dy = {1, 0, -1, 1, 0, -1, 1, 0, -1};
@@ -14,14 +14,15 @@ struct CheckPlayer {
 
     CheckPlayer() = default;
 
+    // Проверка на то, стреляешь ли ты в поле от 0 до 9 клеток
     bool check(int x, int y) {
         return x >= 0 && x < 10 && y >= 0 && y < 10;
     }
 
+    // Проверка на то, стреляешь ли ты в нетронутое поле (т.е. "." на карте)
     bool check_empty(int x, int y) {
         return check(x, y) && field[x][y] == '.' || !check(x, y);
     }
-
 
     void check_ship(int x, int y, int &cnt) {
         cnt++;
@@ -37,6 +38,7 @@ struct CheckPlayer {
 
     }
 
+    // Создание кораблей на поле    
      bool create(vector<vector<char> > pfield) {
         field = pfield;
         for (int i = 0; i < 10; i++) {
@@ -64,10 +66,12 @@ struct CheckPlayer {
     }
 
 
-      bool shot(pair<int, int> p){
+    // Проверка на выстрел в нужном диапазоне
+    bool shot(pair<int, int> p){
         return p.first >= 0 && p.first < 10 && p.second >= 0 && p.second < 10;
     }
 
+    // Проверка на попадание, промах или убийство вражеского корабля
      bool opponent_shot(pair<int, int> p, int res){
         int x = p.first;
         int y = p.second;
@@ -92,11 +96,12 @@ struct CheckPlayer {
 
         return 2 == res;
 
-        //0 - �� �����
-        //1 - �����
-        //2 - ����
+        //0 - мимо
+        //1 - попал
+        //2 - убит
     }
 
+    // Как зовут этого бро
      string team_name(){
         return "Random Player";
     }

@@ -11,7 +11,7 @@ struct Game {
     void print_field(vector<vector<char>> &field) {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
-                cout << field[i][j];
+                cout << field[i][j] << " ";
             }
             cout << endl;
         }
